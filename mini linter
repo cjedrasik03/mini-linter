@@ -1,0 +1,52 @@
+let story = 'Last weekend, I took literally the most beautiful bike ride of my life. The route is called "The 9W to Nyack" and it actually stretches all the way from Riverside Park in Manhattan to South Nyack, New Jersey. It\'s really an adventure from beginning to end! It is a 48 mile loop and it basically took me an entire day. I stopped at Riverbank State Park to take some extremely artsy photos. It was a short stop, though, because I had a really long way left to go. After a quick photo op at the very popular Little Red Lighthouse, I began my trek across the George Washington Bridge into New Jersey.  The GW is actually very long - 4,760 feet! I was already very tired by the time I got to the other side.  An hour later, I reached Greenbrook Nature Sanctuary, an extremely beautiful park along the coast of the Hudson.  Something that was very surprising to me was that near the end of the route you actually cross back into New York! At this point, you are very close to the end.';
+
+let overusedWords = ['really', 'very', 'basically'];
+let unnecessaryWords = ['extremely', 'literally', 'actually'];
+
+// this splits the single string into individual word strings
+const storyWords = story.split(" ");
+
+// this section Counts the total number of words
+let wordCount = 0;
+storyWords.forEach(() => {
+  wordCount++;
+});
+
+// Filterin out the unnecessary words
+let betterWords = storyWords.filter((word) => {
+  return !unnecessaryWords.includes(word); // Return words not in unnecessaryWords
+});
+
+// Counting the overused words
+let overusedWordsCount = 0;
+overusedWords.forEach(function (overused) {
+  betterWords.forEach(function (word) {
+    if (overused === word) {
+      overusedWordsCount++;
+    }
+  });
+});
+
+// The logic for the overused word count and telling the user
+if (overusedWordsCount > 0) {
+  console.log(`You have ${overusedWordsCount} overused words. Try some alternatives for better cohesion. :/`);
+} else {
+  console.log("Well done! You don't have any overused words.");
+}
+
+// Sentence counter based on ending punctuation ('.' or '!')
+let sentenceCounter = 0;
+betterWords.forEach((word) => {
+  if (word.endsWith('.') || word.endsWith('!')) {
+    sentenceCounter++;
+  }
+});
+
+// Loging the results to the console
+console.log(`Your passage contains ${wordCount} words.`);
+console.log(`Your passage has ${sentenceCounter} sentences.`);
+console.log(`Your passage contains ${betterWords.length} words after removing unnecessary words.`);
+
+// Final result: re-Joins betterWords into a refined passage
+let refinedPassage = betterWords.join(" ");
+console.log(refinedPassage);
